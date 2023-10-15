@@ -273,7 +273,7 @@ class _UpdateBillingSectionsState extends State<UpdateBillingSections> {
               const SizedBox(height: 6),
               AppInputOutlineWidget(
                   inputController: amendController,
-                  textInputAction: TextInputAction.next),
+                  textInputAction: TextInputAction.done),
               const SizedBox(height: 30),
             ],
           ),
