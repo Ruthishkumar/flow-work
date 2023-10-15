@@ -30,7 +30,7 @@ class _UpdateBillingSectionsState extends State<UpdateBillingSections> {
   TextEditingController commentController = TextEditingController();
   TextEditingController amendController = TextEditingController();
   TextEditingController revisedController = TextEditingController();
-  TextEditingController statusController = TextEditingController();
+  TextEditingController billReleaseController = TextEditingController();
 
   @override
   void initState() {
@@ -57,7 +57,7 @@ class _UpdateBillingSectionsState extends State<UpdateBillingSections> {
       lineNameController.text = documentSnapshot['lineName'];
       billNumberController.text = documentSnapshot['billNumber'];
       siController.text = documentSnapshot['shippingInstructions'];
-      statusController.text = documentSnapshot['status'] ?? '';
+      billReleaseController.text = documentSnapshot['status'] ?? '';
       updateNameController.text = documentSnapshot['updaterName'] ?? '';
       print(updateNameController.text);
       print('dsds');
@@ -133,7 +133,7 @@ class _UpdateBillingSectionsState extends State<UpdateBillingSections> {
                       const SizedBox(height: 6),
                       AppInputOutlineWidget(
                           inputController: updateNameController,
-                          textInputAction: TextInputAction.next),
+                          textInputAction: TextInputAction.done),
                       const SizedBox(height: 10),
                       sameAsSubmitterWidget(),
                       const SizedBox(height: 30),
@@ -166,7 +166,7 @@ class _UpdateBillingSectionsState extends State<UpdateBillingSections> {
                       appOutlineHeader(labelName: 'Bill Release'),
                       const SizedBox(height: 6),
                       AppInputOutlineWidget(
-                          inputController: statusController,
+                          inputController: billReleaseController,
                           textInputAction: TextInputAction.done),
                       const SizedBox(height: 50),
                       AppButton(
@@ -360,7 +360,7 @@ class _UpdateBillingSectionsState extends State<UpdateBillingSections> {
                   amend: amendController.text,
                   revised: revisedController.text,
                   createAt: createdAtTime,
-                  status: statusController.text,
+                  status: billReleaseController.text,
                   updaterName: updateNameController.text)
               .toJson()))
           .whenComplete(() {
@@ -428,8 +428,8 @@ class _UpdateBillingSectionsState extends State<UpdateBillingSections> {
     } else if (siController.text == '') {
       showToastWidget(msg: 'Please enter shipping instructions');
       return false;
-    } else if (statusController.text == '') {
-      showToastWidget(msg: 'Please enter comments');
+    } else if (billReleaseController.text == '') {
+      showToastWidget(msg: 'Please enter bill release');
       return false;
     }
     return true;
