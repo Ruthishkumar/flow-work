@@ -1,11 +1,13 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:url_strategy/url_strategy.dart';
 import 'package:work_management/dashboard/provider/provider.dart';
 import 'package:work_management/dashboard/utils/router.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  setPathUrlStrategy();
   await Firebase.initializeApp(
       options: const FirebaseOptions(
           apiKey: "AIzaSyBuhOepy8ivflz-R8nS-bHFGiVQ3DAgrco",

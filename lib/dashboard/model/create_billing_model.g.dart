@@ -12,15 +12,13 @@ CreateBillingModel _$CreateBillingModelFromJson(Map<String, dynamic> json) =>
       lineName: json['lineName'] as String,
       billNumber: json['billNumber'] as String,
       shippingInstructions: json['shippingInstructions'] as String,
-      createAt: json['createAt'] == null
-          ? null
-          : DateTime.parse(json['createAt'] as String),
-      updatedAt: json['updatedAt'] == null
-          ? null
-          : DateTime.parse(json['updatedAt'] as String),
-      amend: json['amend'] as String? ?? '',
-      status: json['status'] as String? ?? '',
-      revised: json['revised'] as String? ?? '',
+      comment: json['comment'] as String,
+      createAt: json['createAt'] as String?,
+      updatedAt: json['updatedAt'] as String?,
+      amend: json['amend'] as String?,
+      status: json['status'] as String?,
+      revised: json['revised'] as String?,
+      updaterName: json['updaterName'] as String?,
     );
 
 Map<String, dynamic> _$CreateBillingModelToJson(CreateBillingModel instance) =>
@@ -29,9 +27,11 @@ Map<String, dynamic> _$CreateBillingModelToJson(CreateBillingModel instance) =>
       'lineName': instance.lineName,
       'billNumber': instance.billNumber,
       'shippingInstructions': instance.shippingInstructions,
-      'createAt': instance.createAt?.toIso8601String(),
-      'updatedAt': instance.updatedAt?.toIso8601String(),
+      'createAt': instance.createAt,
+      'updatedAt': instance.updatedAt,
       'amend': instance.amend,
       'revised': instance.revised,
       'status': instance.status,
+      'comment': instance.comment,
+      'updaterName': instance.updaterName,
     };

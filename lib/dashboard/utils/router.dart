@@ -3,15 +3,15 @@ import 'package:go_router/go_router.dart';
 import 'package:work_management/dashboard/screens/create_billing_side_bar.dart';
 import 'package:work_management/dashboard/screens/update_billing_side_bar.dart';
 import 'package:work_management/dashboard/screens/view_billing_side_bar.dart';
+import 'package:work_management/dashboard/sections/error_page.sections.dart';
 
 class AppRouter {
   static GoRouter goRouter = GoRouter(
-    initialLocation: '/create',
-    routes: appRoutes,
-    // errorBuilder: (BuildContext context, GoRouterState state) {
-    //   return const ErrorPage();
-    // }
-  );
+      initialLocation: '/billing',
+      routes: appRoutes,
+      errorBuilder: (BuildContext context, GoRouterState state) {
+        return const ErrorPageSections();
+      });
 
   static final List<GoRoute> appRoutes = [
     GoRoute(
@@ -20,7 +20,7 @@ class AppRouter {
           return const CreateBillingSideBar();
         }),
     GoRoute(
-        path: '/create',
+        path: '/billing',
         builder: (BuildContext context, GoRouterState state) {
           return const CreateBillingSideBar();
         }),

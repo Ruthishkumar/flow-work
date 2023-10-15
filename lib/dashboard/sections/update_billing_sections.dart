@@ -1,5 +1,9 @@
+import 'dart:html' as html;
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_styled_toast/flutter_styled_toast.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -19,9 +23,11 @@ class UpdateBillingSections extends StatefulWidget {
 
 class _UpdateBillingSectionsState extends State<UpdateBillingSections> {
   TextEditingController nameController = TextEditingController();
+  TextEditingController updateNameController = TextEditingController();
   TextEditingController lineNameController = TextEditingController();
   TextEditingController billNumberController = TextEditingController();
   TextEditingController siController = TextEditingController();
+  TextEditingController commentController = TextEditingController();
   TextEditingController amendController = TextEditingController();
   TextEditingController revisedController = TextEditingController();
   TextEditingController statusController = TextEditingController();
@@ -33,7 +39,7 @@ class _UpdateBillingSectionsState extends State<UpdateBillingSections> {
   }
 
   String createdAtTime = "";
-  final df = DateFormat('dd-MM-yyyy');
+  final df = DateFormat('dd MMM yyyy, HH:mm:ss');
 
   getData() async {
     String myDocumentId =
@@ -44,23 +50,31 @@ class _UpdateBillingSectionsState extends State<UpdateBillingSections> {
         .doc(myDocumentId)
         .get()
         .then((value) {
-      documentSnapshot = value; // you get the document here
+      documentSnapshot = value;
+      print(documentSnapshot['updaterName']);
+      print('UPdspdsds');
       nameController.text = documentSnapshot['submitterName'];
       lineNameController.text = documentSnapshot['lineName'];
       billNumberController.text = documentSnapshot['billNumber'];
       siController.text = documentSnapshot['shippingInstructions'];
       statusController.text = documentSnapshot['status'] ?? '';
+      updateNameController.text = documentSnapshot['updaterName'] ?? '';
+      print(updateNameController.text);
+      print('dsds');
       createdAtTime = documentSnapshot['createAt'];
+      commentController.text = documentSnapshot['comment'] ?? '';
       print(createdAtTime);
       print('CREATE TIME');
-      if (documentSnapshot['amend'] != null) {
-        amendController.text = documentSnapshot['amend'];
+      if (documentSnapshot['amend'] != '' ||
+          documentSnapshot['amend'] != null) {
+        amendController.text = documentSnapshot['amend'] ?? '';
         setState(() {
           showAmend = true;
         });
       }
-      if (documentSnapshot['revised'] != null) {
-        revisedController.text = documentSnapshot['revised'];
+      if (documentSnapshot['revised'] != '' ||
+          documentSnapshot['revised'] != null) {
+        revisedController.text = documentSnapshot['revised'] ?? '';
         setState(() {
           showRevised = true;
         });
@@ -68,8 +82,22 @@ class _UpdateBillingSectionsState extends State<UpdateBillingSections> {
     });
   }
 
+  getSameNumberData() {
+    if (sameName == true) {
+      updateNameController.text = nameController.text;
+      print(updateNameController.text);
+      print('FALSE');
+      setState(() {});
+    } else if (sameName == false) {
+      updateNameController.text = '';
+      setState(() {});
+    }
+  }
+
   bool showAmend = false;
   bool showRevised = false;
+
+  bool sameName = false;
 
   bool buttonLoading = false;
   @override
@@ -101,6 +129,14 @@ class _UpdateBillingSectionsState extends State<UpdateBillingSections> {
                           inputController: nameController,
                           textInputAction: TextInputAction.next),
                       const SizedBox(height: 30),
+                      appOutlineHeader(labelName: 'Updater Name'),
+                      const SizedBox(height: 6),
+                      AppInputOutlineWidget(
+                          inputController: updateNameController,
+                          textInputAction: TextInputAction.next),
+                      const SizedBox(height: 10),
+                      sameAsSubmitterWidget(),
+                      const SizedBox(height: 30),
                       appOutlineHeader(labelName: 'Line Name'),
                       const SizedBox(height: 6),
                       AppInputOutlineWidget(
@@ -118,6 +154,12 @@ class _UpdateBillingSectionsState extends State<UpdateBillingSections> {
                       AppInputOutlineWidget(
                           inputController: siController,
                           textInputAction: TextInputAction.next),
+                      const SizedBox(height: 30),
+                      appOutlineHeader(labelName: 'Comments'),
+                      const SizedBox(height: 6),
+                      AppInputOutlineWidget(
+                          inputController: commentController,
+                          textInputAction: TextInputAction.done),
                       const SizedBox(height: 30),
                       amendWidget(),
                       revisedWidget(),
@@ -231,7 +273,7 @@ class _UpdateBillingSectionsState extends State<UpdateBillingSections> {
               const SizedBox(height: 6),
               AppInputOutlineWidget(
                   inputController: amendController,
-                  textInputAction: TextInputAction.done),
+                  textInputAction: TextInputAction.next),
               const SizedBox(height: 30),
             ],
           ),
@@ -313,13 +355,19 @@ class _UpdateBillingSectionsState extends State<UpdateBillingSections> {
                   lineName: lineNameController.text,
                   billNumber: billNumberController.text,
                   shippingInstructions: siController.text,
-                  updatedAt: DateTime.now(),
+                  comment: commentController.text,
+                  updatedAt: df.format(DateTime.now()),
                   amend: amendController.text,
                   revised: revisedController.text,
-                  createAt: DateTime.now(),
-                  status: statusController.text)
+                  createAt: createdAtTime,
+                  status: statusController.text,
+                  updaterName: updateNameController.text)
               .toJson()))
           .whenComplete(() {
+        context.pop();
+        html.window.location.reload();
+
+        setState(() {});
         setState(() => buttonLoading = false);
       }).catchError((error) {
         print(error.toString());
@@ -327,19 +375,79 @@ class _UpdateBillingSectionsState extends State<UpdateBillingSections> {
     }
   }
 
+  /// same as submitter name widget
+  sameAsSubmitterWidget() {
+    return Row(
+      children: [
+        SizedBox(
+          width: 20,
+          height: 16,
+          child: Checkbox(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(4),
+            ),
+            side: const BorderSide(color: Colors.white),
+            checkColor: Colors.white,
+            activeColor: const Color(0xff021B79),
+            value: sameName,
+            onChanged: (value) {
+              setState(() {
+                sameName = !sameName;
+              });
+              getSameNumberData();
+            },
+          ),
+        ),
+        const SizedBox(width: 5),
+        Text(
+          'Same as Submitter name',
+          style: GoogleFonts.montserrat(
+              color: AppColors.appPrimaryTextColor,
+              fontSize: 12,
+              fontWeight: FontWeight.w400,
+              fontStyle: FontStyle.normal),
+        )
+      ],
+    );
+  }
+
   /// validate form
   bool validate() {
     if (nameController.text == '') {
+      showToastWidget(msg: 'Please enter name');
+      return false;
+    } else if (updateNameController.text == '') {
+      showToastWidget(msg: 'Please enter updater name');
       return false;
     } else if (lineNameController.text == '') {
+      showToastWidget(msg: 'Please enter line name');
       return false;
     } else if (billNumberController.text == '') {
+      showToastWidget(msg: 'Please enter bill number');
       return false;
     } else if (siController.text == '') {
+      showToastWidget(msg: 'Please enter shipping instructions');
       return false;
     } else if (statusController.text == '') {
+      showToastWidget(msg: 'Please enter comments');
       return false;
     }
     return true;
+  }
+
+  showToastWidget({required String msg}) {
+    showToast(msg,
+        context: context,
+        backgroundColor: Colors.black45,
+        animation: StyledToastAnimation.slideFromTop,
+        reverseAnimation: StyledToastAnimation.slideToTop,
+        position: StyledToastPosition.top,
+        startOffset: const Offset(0.0, -3.0),
+        reverseEndOffset: const Offset(0.0, -3.0),
+        duration: const Duration(seconds: 4),
+        //Animation duration   animDuration * 2 <= duration
+        animDuration: const Duration(seconds: 1),
+        curve: Curves.elasticOut,
+        reverseCurve: Curves.fastOutSlowIn);
   }
 }

@@ -21,9 +21,9 @@ class AppStyles {
 
   final TextStyle? viewHeaderName = GoogleFonts.montserrat(
       fontStyle: FontStyle.normal,
-      fontWeight: FontWeight.w500,
+      fontWeight: FontWeight.w700,
       fontSize: 14,
-      color: AppColors.appPrimaryTextColor);
+      color: Color(0xff24C6DC));
 
   final TextStyle? showAmend = GoogleFonts.montserrat(
       fontStyle: FontStyle.normal,

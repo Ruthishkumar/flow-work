@@ -9,25 +9,26 @@ class CreateBillingModel {
   String lineName;
   String billNumber;
   String shippingInstructions;
-  DateTime? createAt;
-  DateTime? updatedAt;
-  @JsonKey(defaultValue: '')
+  String? createAt;
+  String? updatedAt;
   String? amend;
-  @JsonKey(defaultValue: '')
   String? revised;
-  @JsonKey(defaultValue: '')
   String? status;
+  String comment;
+  String? updaterName;
 
   CreateBillingModel(
       {required this.submitterName,
       required this.lineName,
       required this.billNumber,
       required this.shippingInstructions,
+      required this.comment,
       this.createAt,
       this.updatedAt,
       this.amend,
       this.status,
-      this.revised});
+      this.revised,
+      this.updaterName});
 
   factory CreateBillingModel.fromJson(Map<String, dynamic> json) =>
       _$CreateBillingModelFromJson(json);

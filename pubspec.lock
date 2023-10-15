@@ -25,6 +25,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.2.0"
+  archive:
+    dependency: transitive
+    description:
+      name: archive
+      sha256: "7e0d52067d05f2e0324268097ba723b71cb41ac8a6a2b24d1edf9c536b987b03"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.4.6"
   args:
     dependency: transitive
     description:
@@ -233,30 +241,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "7.0.0"
-  firebase_auth:
-    dependency: "direct main"
-    description:
-      name: firebase_auth
-      sha256: "95c74884ff25eafcbbbcd5506b738e68ee98ff54d09522a6092a2fb95d02ee7a"
-      url: "https://pub.dev"
-    source: hosted
-    version: "4.10.1"
-  firebase_auth_platform_interface:
-    dependency: transitive
-    description:
-      name: firebase_auth_platform_interface
-      sha256: "05d2636673e145d2b5eccc452c009808af4c15e8b402f34bb8fec63f2c76e86b"
-      url: "https://pub.dev"
-    source: hosted
-    version: "6.19.1"
-  firebase_auth_web:
-    dependency: transitive
-    description:
-      name: firebase_auth_web
-      sha256: "4b8374da5d8969f99453ebd65074c1d379fe781bb3680fa7f65a4d3ac4ec87b3"
-      url: "https://pub.dev"
-    source: hosted
-    version: "5.8.2"
   firebase_core:
     dependency: "direct main"
     description:
@@ -302,6 +286,19 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.2"
+  flutter_localizations:
+    dependency: transitive
+    description: flutter
+    source: sdk
+    version: "0.0.0"
+  flutter_styled_toast:
+    dependency: "direct main"
+    description:
+      name: flutter_styled_toast
+      sha256: e667f13a665820eb0fa8506547e47eacbcddf1948d6d3036cfd3b089bd4b0516
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.2.1"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -380,10 +377,10 @@ packages:
     dependency: "direct main"
     description:
       name: intl
-      sha256: "910f85bce16fb5c6f614e117efa303e85a1731bb0081edf3604a2ae6e9a3cc91"
+      sha256: a3715e3bc90294e971cb7dc063fbf3cd9ee0ebf8604ffeafabd9e6f16abbdbe6
       url: "https://pub.dev"
     source: hosted
-    version: "0.17.0"
+    version: "0.18.0"
   io:
     dependency: transitive
     description:
@@ -432,6 +429,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.0"
+  lottie:
+    dependency: "direct main"
+    description:
+      name: lottie
+      sha256: b8bdd54b488c54068c57d41ae85d02808da09e2bee8b8dd1f59f441e7efa60cd
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.6.0"
   matcher:
     dependency: transitive
     description:
@@ -552,6 +557,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.6"
+  pointycastle:
+    dependency: transitive
+    description:
+      name: pointycastle
+      sha256: "7c1e5f0d23c9016c5bbd8b1473d0d3fb3fc851b876046039509e18e0c7485f2c"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.7.3"
   pool:
     dependency: transitive
     description:
@@ -637,14 +650,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.9.1"
-  sprintf:
-    dependency: transitive
-    description:
-      name: sprintf
-      sha256: "1fc9ffe69d4df602376b52949af107d8f5703b77cda567c4d7d86a0693120f23"
-      url: "https://pub.dev"
-    source: hosted
-    version: "7.0.0"
   stack_trace:
     dependency: transitive
     description:
@@ -677,22 +682,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.0"
-  syncfusion_flutter_core:
-    dependency: transitive
-    description:
-      name: syncfusion_flutter_core
-      sha256: "164a66d2a7fa9972e2a4767fbbf9f42f9fab3fd3c4149a6db72f846d85686f86"
-      url: "https://pub.dev"
-    source: hosted
-    version: "23.1.40"
-  syncfusion_flutter_datagrid:
-    dependency: "direct main"
-    description:
-      name: syncfusion_flutter_datagrid
-      sha256: fb0f23455e95a13cf86e91eaedf2aabde0a4fe9df77e7525bd57f002b6f5e1cd
-      url: "https://pub.dev"
-    source: hosted
-    version: "23.1.40"
   term_glyph:
     dependency: transitive
     description:
@@ -725,14 +714,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.3.2"
-  uuid:
+  url_strategy:
     dependency: "direct main"
     description:
-      name: uuid
-      sha256: b715b8d3858b6fa9f68f87d20d98830283628014750c2b09b6f516c1da4af2a7
+      name: url_strategy
+      sha256: "42b68b42a9864c4d710401add17ad06e28f1c1d5500c93b98c431f6b0ea4ab87"
       url: "https://pub.dev"
     source: hosted
-    version: "4.1.0"
+    version: "0.2.0"
   vector_math:
     dependency: transitive
     description:
@@ -783,4 +772,4 @@ packages:
     version: "3.1.2"
 sdks:
   dart: ">=3.0.0 <4.0.0"
-  flutter: ">=3.7.0"
+  flutter: ">=3.10.0"
